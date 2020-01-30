@@ -32,10 +32,11 @@ public class Worker {
                 doWork(message);
             } finally {
                 System.out.println(" [x] Done");
+                //下面就是手动确认机制！
                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             }
         };
-        boolean autoAck = false;
+        boolean autoAck = false;//这个就是手动确认机制了
         channel.basicConsume(TASK_QUEUE_NAME, autoAck, deliverCallback, consumerTag -> { });
     }
 
